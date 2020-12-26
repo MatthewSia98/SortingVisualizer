@@ -300,6 +300,8 @@ while run:
             mouse_pos = pygame.mouse.get_pos()
             if selection_text.collidepoint(mouse_pos):
                 l = generate_list(lmin, lmax, lnum)
+                draw_list(w, l)
+                time.sleep(2)
                 selection = font.render("SelectionSort", True, (0, 255, 0))
                 start = time.time()
                 selection_sort(l, 0)
@@ -309,6 +311,8 @@ while run:
                 time.sleep(2)
             elif quick_text.collidepoint(mouse_pos):
                 l = generate_list(lmin, lmax, lnum)
+                draw_list(w, l)
+                time.sleep(2)
                 quick = font.render("QuickSort", True, (0, 255, 0))
                 start = time.time()
                 quick_sort(l, 0, len(l)-1)
@@ -318,6 +322,8 @@ while run:
                 time.sleep(2)
             elif merge_text.collidepoint(mouse_pos):
                 l = generate_list(lmin, lmax, lnum)
+                draw_list(w, l)
+                time.sleep(2)
                 merge_font = font.render("MergeSort", True, (0, 255, 0))
                 start = time.time()
                 merge_sort(l, 0, len(l)-1)
@@ -327,6 +333,8 @@ while run:
                 time.sleep(2)
             elif insertion_text.collidepoint(mouse_pos):
                 l = generate_list(lmin, lmax, lnum)
+                draw_list(w, l)
+                time.sleep(2)
                 insertion = font.render("InsertionSort", True, (0, 255, 0))
                 start = time.time()
                 insertion_sort(l)
@@ -336,6 +344,8 @@ while run:
                 time.sleep(2)
             elif bubble_text.collidepoint(mouse_pos):
                 l = generate_list(lmin, lmax, lnum)
+                draw_list(w, l)
+                time.sleep(2)
                 bubble = font.render("BubbleSort", True, (0, 255, 0))
                 start = time.time()
                 bubble_sort(l)
@@ -345,6 +355,8 @@ while run:
                 time.sleep(2)
             elif radix_text.collidepoint(mouse_pos):
                 l = generate_list(lmin, lmax, lnum)
+                draw_list(w, l)
+                time.sleep(2)
                 radix = font.render("RadixSort", True, (0, 255, 0))
                 start = time.time()
                 radix_sort(l)
@@ -354,6 +366,8 @@ while run:
                 time.sleep(2)
             elif heap_text.collidepoint(mouse_pos):
                 l = generate_list(lmin, lmax, lnum)
+                draw_list(w, l)
+                time.sleep(2)
                 heap = font.render("HeapSort", True, (0, 255, 0))
                 start = time.time()
                 heap_sort(l)
