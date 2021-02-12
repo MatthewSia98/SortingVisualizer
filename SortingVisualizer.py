@@ -4,7 +4,7 @@ import time
 
 SCREENWIDTH = 1800
 SCREENHEIGHT = 1000
-DELAY = 0.02
+DELAY = 0.05
 
 # Pygame Initialization
 pygame.init()
@@ -51,6 +51,7 @@ time_font = font.render("Time:", True, (255, 0, 0))
 time_text = time_font.get_rect()
 time_text.center = (selection_text.center[0], selection_text.center[1] - font.size("SelectionSort")[1] - padding)
 
+
 # List Utility Functions
 def draw_list(w, l):
     largest = max(l)
@@ -65,6 +66,7 @@ def draw_list(w, l):
 
     pygame.display.update()
 
+
 def generate_list(start, end, n):
     result = []
 
@@ -73,9 +75,10 @@ def generate_list(start, end, n):
 
     return result
 
+
 # Sorting Algorithms
 def selection_sort(l, s):
-    time.sleep(3*DELAY)
+    time.sleep(DELAY)
     if s == len(l):
         return
 
@@ -86,15 +89,17 @@ def selection_sort(l, s):
             min_index = i
 
     swap(l, s, min_index)
-    time.sleep(3*DELAY)
     draw_list(w, l)
     selection_sort(l, s+1)
 
+
 def quick_sort(l, s, e):
+    time.sleep(DELAY / 2)
     if s < e:
         p = partition(l, s, e)
         quick_sort(l, s, p-1)
         quick_sort(l, p+1, e)
+
 
 def merge_sort(l, s, e):
     mid = (s+e) // 2
@@ -103,25 +108,25 @@ def merge_sort(l, s, e):
         merge_sort(l, mid+1, e)
         merge(l, s, mid, mid+1, e)
 
+
 def insertion_sort(l):
     for i in range(1, len(l)):
         curr = l[i]
         j = i-1
         while j >= 0 and curr < l[j]:
             l[j+1] = l[j]
-            time.sleep(DELAY)
             draw_list(w, l)
             j -= 1
 
         l[j+1] = curr
         draw_list(w, l)
 
+
 def bubble_sort(l):
     for i in range(len(l)):
         for j in range(len(l)-i-1):
             if l[j] > l[j+1]:
                 swap(l, j, j+1)
-                time.sleep(DELAY)
                 draw_list(w, l)
 
 
@@ -132,6 +137,7 @@ def radix_sort(l):
     while largest // num > 0:
         counting_sort(l, num)
         num *= 10
+
 
 def counting_sort(l, num):
     result = [0] * len(l)
@@ -152,27 +158,27 @@ def counting_sort(l, num):
         i -= 1
 
     for i in range(len(l)):
+        time.sleep(DELAY / 6)
         l[i] = result[i]
-        time.sleep(DELAY)
         draw_list(w, l)
+
 
 def heap_sort(l):
     for i in range(len(l)//2, -1, -1):
         heapify(l, len(l), i)
-        time.sleep(DELAY)
-        draw_list(w, l)
 
     for i in range(len(l) - 1, 0, -1):
         swap(l, 0, i)
-        time.sleep(DELAY)
         draw_list(w, l)
         heapify(l, i, 0)
+
 
 # Sorting Helper Functions
 def swap(l, a, b):
     tmp = l[a]
     l[a] = l[b]
     l[b] = tmp
+
 
 def partition(l, s, e):
     i = s
@@ -190,13 +196,12 @@ def partition(l, s, e):
                 i += 1
 
             swap(l, i, e)
-            time.sleep(3*DELAY)
             draw_list(w, l)
             return i
         else:
             swap(l, i, j)
-            time.sleep(3*DELAY)
             draw_list(w, l)
+
 
 def merge(l, a, b, c, d):
     i = a
@@ -211,20 +216,13 @@ def merge(l, a, b, c, d):
             tmp.append(l[j])
             j += 1
 
-    while i <= b:
-        tmp.append(l[i])
-        i += 1
+    tmp.extend(l[i:c])
+    tmp.extend(l[j:d+1])
 
-    while j <= d:
-        tmp.append(l[j])
-        j += 1
-
-    j = 0
-    for i in range(a, d+1):
-        l[i] = tmp[j]
-        time.sleep(DELAY)
+    for i in range(len(tmp)):
+        l[a+i] = tmp[i]
         draw_list(w, l)
-        j += 1
+
 
 def heapify(l, n, i):
     largest = i
@@ -239,9 +237,9 @@ def heapify(l, n, i):
 
     if largest != i:
         swap(l, i, largest)
-        time.sleep(DELAY)
         draw_list(w, l)
         heapify(l, n, largest)
+
 
 # Pygame window drawing functions
 def draw_options():
@@ -273,6 +271,7 @@ def draw_options():
     pygame.draw.line(w, (255, 0, 0), (SCREENWIDTH-1, height), (SCREENWIDTH-1, SCREENHEIGHT))
     pygame.display.update()
 
+
 def draw_textbox():
     w.fill((0, 0, 0))
     pygame.draw.rect(w, color, input_box, 2)
@@ -280,15 +279,17 @@ def draw_textbox():
     w.blit(text_font, (input_box.x + 5, input_box.y))
     input_box.w = max(padding, text_font.get_width() + 10)
 
+
 def draw_time():
     time_font = font.render("Time:" + str(end - start), True, (255, 0, 0))
     w.blit(time_font, time_text)
     pygame.display.update()
 
+
 run = True
 lmin = 1
 lmax = 10000
-lnum = 100
+lnum = 200
 
 while run:
     draw_options()
